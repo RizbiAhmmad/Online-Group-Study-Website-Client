@@ -10,7 +10,7 @@ const Navbar = () => {
       <div className="navbar-start flex items-center">
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold text-teal-400">
-          Group-Study
+          Group Study
         </Link>
         {/* Hamburger Menu */}
         <button
