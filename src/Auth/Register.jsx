@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
 
 const Register = () => {
@@ -14,11 +15,9 @@ const Register = () => {
   }, []);
 
   const validatePassword = (password) => {
-    
     const uppercase = /[A-Z]/.test(password);
     const lowercase = /[a-z]/.test(password);
     const length = password.length >= 6;
-
     return uppercase && lowercase && length;
   };
 
@@ -32,13 +31,11 @@ const Register = () => {
     const photo = form.get("photo") || "https://default-photo-url.com";
     const password = form.get("password");
 
-    
     if (name.length < 2) {
       setError({ name: "Name must be more than 2 characters" });
       return;
     }
 
-    
     if (!validatePassword(password)) {
       setError({
         password:
@@ -47,15 +44,22 @@ const Register = () => {
       return;
     }
 
-    
     createNewUser(email, password)
       .then((result) => {
         const user = result.user;
 
-
         return updateUserProfile({ displayName: name, photoURL: photo }).then(() => {
           setUser({ ...user, displayName: name, photoURL: photo });
-          navigate("/");
+
+          // Show SweetAlert after successful registration
+          Swal.fire({
+            title: "Registration Successful!",
+            text: "Your account has been created successfully.",
+            icon: "success",
+            confirmButtonText: "OK",
+          }).then(() => {
+            navigate("/");
+          });
         });
       })
       .catch((err) => setError({ register: err.message }));
@@ -129,21 +133,18 @@ const Register = () => {
             </div>
           </div>
 
-          
           {error.password && (
             <div className="text-red-500 text-sm mb-4">
               <p>{error.password}</p>
             </div>
           )}
 
-          
           {error.name && (
             <div className="text-red-500 text-sm mb-4">
               <p>{error.name}</p>
             </div>
           )}
 
-          
           {error.register && (
             <div className="text-red-500 text-sm mb-4">
               <p>{error.register}</p>
