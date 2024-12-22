@@ -3,7 +3,7 @@ import React from "react";
 const Banner = () => {
   return (
     <div>
-      {/* Banner Section */}
+     
       <section
         className="bg-cover bg-center text-white h-screen"
         style={{
