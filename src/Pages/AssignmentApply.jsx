@@ -1,11 +1,12 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
 
 const AssignmentApply = () => {
     const {id} = useParams();
     const {user} = useAuth();
+    const navigate = useNavigate()
     // console.log(id , user);
 
     const submitAssignmentApplication= e =>{
@@ -37,6 +38,7 @@ const AssignmentApply = () => {
                 icon: "success",
                 draggable: true
               });
+              navigate ('/myassignments')
            }
 
         })
