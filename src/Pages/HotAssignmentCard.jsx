@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HotAssignmentCard = ({assignment}) => {
-    const {title, description,difficulty,dueDate, marks} = assignment;
+    const {_id, title, description,difficulty,dueDate, marks} = assignment;
     
     const difficultyColors = {
         easy: "bg-green-500",
@@ -40,9 +41,9 @@ const HotAssignmentCard = ({assignment}) => {
               Marks: <strong>{marks}</strong>
             </span>
           </div>
-          <div>
+          <Link to={`/assignments/${_id}`}>
             <button className='btn btn-link'>View Details</button>
-          </div>
+          </Link>
         </div>
 
         
