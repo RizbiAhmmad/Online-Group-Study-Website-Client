@@ -15,7 +15,7 @@ const Login = () => {
   const from = location.state?.from || "/";
 
   useEffect(() => {
-    document.title = "Title | Login";
+    document.title = "Group Study | Login";
   }, []);
 
   const handleSubmit = (e) => {

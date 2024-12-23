@@ -1,8 +1,8 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 
 const AssignmentDetails = () => {
-    const { title,
+    const { _id, title,
         description,
         marks,
         thumbnail,
@@ -55,25 +55,16 @@ const AssignmentDetails = () => {
           </div>
   
           
-          {/* <div className="mt-6 border-t pt-4">
-            <h3 className="text-sm font-bold text-gray-500">Created By</h3>
-            <p className="text-lg text-gray-800">
-              {createdBy?.name || "Unknown"}{" "}
-              <span className="text-sm text-gray-500">
-                ({createdBy?.email || "N/A"})
-              </span>
-            </p>
-          </div> */}
         </div>
   
         {/* Footer Actions */}
-        <div className="bg-gray-100 p-4 flex justify-end space-x-4">
-          <button className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
-            Edit Assignment
-          </button>
-          <button className="px-4 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600">
-            Delete Assignment
-          </button>
+        <div className=" p-2 flex justify-center space-x-4">
+         <Link to={`/assignmentApply/${_id}`} >
+         <button className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+            Take Assignment
+          </button>        
+         </Link>
+          
         </div>
       </div>
     );

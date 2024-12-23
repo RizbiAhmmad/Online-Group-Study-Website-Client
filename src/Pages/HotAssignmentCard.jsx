@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const HotAssignmentCard = ({assignment}) => {
-    const {_id, title, description,difficulty,dueDate, marks} = assignment;
+    const {_id,thumbnail, title, description,difficulty,dueDate, marks} = assignment;
     
     const difficultyColors = {
         easy: "bg-green-500",
@@ -13,11 +13,11 @@ const HotAssignmentCard = ({assignment}) => {
     return (
         <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
         {/* Thumbnail */}
-        {/* <img
+        * <img
           className="w-full h-48 object-cover"
           src={thumbnail}
           alt={title}
-        /> */}
+        /> 
   
         {/* Card Content */}
         <div className="p-4">
@@ -41,9 +41,24 @@ const HotAssignmentCard = ({assignment}) => {
               Marks: <strong>{marks}</strong>
             </span>
           </div>
+          <div className='mt-2 flex justify-between'>
           <Link to={`/assignments/${_id}`}>
-            <button className='btn btn-link'>View Details</button>
+          <button className="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600">
+            View Details
+          </button>
           </Link>
+          <Link to=''>
+          <button className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+            Update
+          </button>
+          
+          </Link>
+          <Link to=''>
+          <button className="px-4 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600">
+            Delete
+          </button>
+          </Link>
+          </div>
         </div>
 
         
