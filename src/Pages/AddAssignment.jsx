@@ -1,22 +1,45 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import Swal from 'sweetalert2';
+import useAuth from '../hooks/useAuth';
 
 const AddAssignment = () => {
   const [dueDate, setDueDate] = useState(new Date());
+  const { user } = useAuth(); 
 
   const handleAddAssignment = (e) => {
     e.preventDefault();
 
-    // Get form data
+    
     const formData = new FormData(e.target);
     const initialData = Object.fromEntries(formData.entries());
 
-   
-    initialData.dueDate = dueDate.toISOString().split("T")[0]; 
+    
+    initialData.dueDate = dueDate.toISOString().split("T")[0];
 
     console.log(initialData);
-    alert("Assignment created successfully!");
+
+    // Post data to the server
+    fetch('http://localhost:5000/assignments', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(initialData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            title: 'Your Assignment has been successfully added.',
+            icon: 'success',
+            draggable: true,
+          });
+          
+          navigate('/myassignments');
+        }
+      });
   };
 
   return (
@@ -24,6 +47,22 @@ const AddAssignment = () => {
       <div className="w-full max-w-3xl bg-white p-8 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-6 text-center">Add New Assignment</h1>
         <form onSubmit={handleAddAssignment}>
+          
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-medium mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={user?.email || ''}
+              readOnly
+              className="w-full px-4 py-2 border rounded bg-gray-200 cursor-not-allowed focus:outline-none"
+              required
+            />
+          </div>
+
           {/* Title */}
           <div className="mb-4">
             <label htmlFor="title" className="block text-sm font-medium mb-2">
