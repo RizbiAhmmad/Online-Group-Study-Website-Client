@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from 'sweetalert2';
 import useAuth from '../hooks/useAuth';
+import { Navigate } from 'react-router-dom';
 
 const AddAssignment = () => {
   const [dueDate, setDueDate] = useState(new Date());
@@ -37,7 +38,7 @@ const AddAssignment = () => {
             draggable: true,
           });
           
-          navigate('/myassignments');
+          Navigate('/myPostedAssignments');
         }
       });
   };

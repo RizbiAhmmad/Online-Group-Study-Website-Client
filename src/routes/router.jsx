@@ -49,8 +49,9 @@ import AddAssignment from "../Pages/AddAssignment";
     {
       path:'/addAssignment',
       element: <PrivateRoute><AddAssignment></AddAssignment></PrivateRoute>
-    }
-    
+    },
+   
+
     ]
     },
   ]);
