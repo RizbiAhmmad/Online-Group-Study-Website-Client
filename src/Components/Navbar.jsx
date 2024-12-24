@@ -69,6 +69,19 @@ const Navbar = () => {
               Assignments
             </NavLink>
           </li>
+            <li>
+            <NavLink
+              to="/addAssignment"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-cyan-500 font-bold"
+                  : "text-gray-300 hover:text-cyan-500"
+              }
+            >
+             Add Assignment
+            </NavLink>
+          </li>
+
           <li>
             <NavLink
               to="/myassignments"
