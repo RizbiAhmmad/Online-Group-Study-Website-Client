@@ -51,7 +51,7 @@ const Navbar = () => {
               className={({ isActive }) =>
                 isActive
                   ? "text-cyan-500 font-bold"
-                  : "text-gray-300 hover:text-cyan-500"
+                  : "text-gray-500 hover:text-cyan-500"
               }
             >
               Home
@@ -63,7 +63,7 @@ const Navbar = () => {
               className={({ isActive }) =>
                 isActive
                   ? "text-cyan-500 font-bold"
-                  : "text-gray-300 hover:text-cyan-500"
+                  : "text-gray-500 hover:text-cyan-500"
               }
             >
               Assignments
@@ -75,7 +75,7 @@ const Navbar = () => {
               className={({ isActive }) =>
                 isActive
                   ? "text-cyan-500 font-bold"
-                  : "text-gray-300 hover:text-cyan-500"
+                  : "text-gray-500 hover:text-cyan-500"
               }
             >
              Add Assignment
@@ -88,7 +88,7 @@ const Navbar = () => {
               className={({ isActive }) =>
                 isActive
                   ? "text-cyan-500 font-bold"
-                  : "text-gray-300 hover:text-cyan-500"
+                  : "text-gray-500 hover:text-cyan-500"
               }
             >
              My Assignments
@@ -101,7 +101,7 @@ const Navbar = () => {
               className={({ isActive }) =>
                 isActive
                   ? "text-cyan-500 font-bold"
-                  : "text-gray-300 hover:text-cyan-500"
+                  : "text-gray-500 hover:text-cyan-500"
               }
             >
              Pending Assignments

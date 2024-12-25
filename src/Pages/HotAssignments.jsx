@@ -19,7 +19,7 @@ const HotAssignments = () => {
       });
 
       if (response.ok) {
-        // Update state by removing the deleted assignment
+        
         setAssignments((prevAssignments) =>
           prevAssignments.filter((assignment) => assignment._id !== id)
         );
@@ -39,7 +39,7 @@ const HotAssignments = () => {
         <HotAssignmentCard
           key={assignment._id}
           assignment={assignment}
-          onDelete={handleDelete} // Pass the `handleDelete` function as a prop
+          onDelete={handleDelete}
         />
       ))}
     </div>

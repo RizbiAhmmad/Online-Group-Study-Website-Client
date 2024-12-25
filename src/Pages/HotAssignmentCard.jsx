@@ -23,7 +23,7 @@ const HotAssignmentCard = ({ assignment, onDelete }) => {
     });
 
     if (confirm.isConfirmed) {
-      onDelete(_id); // Trigger the delete function passed from the parent
+      onDelete(_id); 
     }
   };
 
@@ -60,7 +60,7 @@ const HotAssignmentCard = ({ assignment, onDelete }) => {
               View Details
             </button>
           </Link>
-          <Link to="">
+          <Link to={`/updateAssignment/${_id}`}>
             <button className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
               Update
             </button>

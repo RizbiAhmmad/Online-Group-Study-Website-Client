@@ -2,23 +2,23 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from 'sweetalert2';
-import useAuth from '../hooks/useAuth'; // Custom hook for auth
-import { useNavigate } from 'react-router-dom'; // useNavigate hook for programmatic navigation
+import useAuth from '../hooks/useAuth'; 
+import { useNavigate } from 'react-router-dom'; 
 
 const AddAssignment = () => {
   const [dueDate, setDueDate] = useState(new Date());
-  const { user } = useAuth(); // Extract user details from the custom hook
-  const navigate = useNavigate(); // Initialize navigate function
+  const { user } = useAuth(); 
+  const navigate = useNavigate(); 
 
   const handleAddAssignment = (e) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target); // Extract form data
+    const formData = new FormData(e.target); 
     const initialData = Object.fromEntries(formData.entries());
 
-    // Set dueDate and default status
+    
     initialData.dueDate = dueDate.toISOString().split("T")[0];
-    initialData.status = 'Pending'; // Default status: "Pending"
+    initialData.status = 'Pending'; 
 
     console.log('Assignment Data:', initialData);
 
