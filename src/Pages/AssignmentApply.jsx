@@ -39,6 +39,12 @@ const AssignmentApply = () => {
                 draggable: true
               });
               navigate ('/myassignments')
+           } else {
+            Swal.fire({
+                title: "Do not try to make multiple submission.",
+                icon: "error",
+                draggable: true
+              });          
            }
 
         })

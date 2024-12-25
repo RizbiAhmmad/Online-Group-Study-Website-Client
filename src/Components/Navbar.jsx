@@ -95,6 +95,19 @@ const Navbar = () => {
             </NavLink>
           </li>
 
+          <li>
+            <NavLink
+              to="/pending-assignments"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-cyan-500 font-bold"
+                  : "text-gray-300 hover:text-cyan-500"
+              }
+            >
+             Pending Assignments
+            </NavLink>
+          </li>
+
   
 
         </ul>

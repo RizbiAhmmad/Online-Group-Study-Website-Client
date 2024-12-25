@@ -2,30 +2,31 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from 'sweetalert2';
-import useAuth from '../hooks/useAuth';
-import { Navigate } from 'react-router-dom';
+import useAuth from '../hooks/useAuth'; // Custom hook for auth
+import { useNavigate } from 'react-router-dom'; // useNavigate hook for programmatic navigation
 
 const AddAssignment = () => {
   const [dueDate, setDueDate] = useState(new Date());
-  const { user } = useAuth(); 
+  const { user } = useAuth(); // Extract user details from the custom hook
+  const navigate = useNavigate(); // Initialize navigate function
 
   const handleAddAssignment = (e) => {
     e.preventDefault();
 
-    
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target); // Extract form data
     const initialData = Object.fromEntries(formData.entries());
 
-    
+    // Set dueDate and default status
     initialData.dueDate = dueDate.toISOString().split("T")[0];
+    initialData.status = 'Pending'; // Default status: "Pending"
 
-    console.log(initialData);
+    console.log('Assignment Data:', initialData);
 
-    // Post data to the server
+    // Send data to the backend
     fetch('http://localhost:5000/assignments', {
       method: 'POST',
       headers: {
-        'content-type': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(initialData),
     })
@@ -37,8 +38,9 @@ const AddAssignment = () => {
             icon: 'success',
             draggable: true,
           });
-          
-          Navigate('/myPostedAssignments');
+
+          // Navigate to My Posted Assignments page
+          navigate('/assignments');
         }
       });
   };
@@ -48,7 +50,7 @@ const AddAssignment = () => {
       <div className="w-full max-w-3xl bg-white p-8 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-6 text-center">Add New Assignment</h1>
         <form onSubmit={handleAddAssignment}>
-          
+          {/* Email */}
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium mb-2">
               Email

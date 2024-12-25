@@ -11,6 +11,8 @@ import AssignmentApply from "../Pages/AssignmentApply";
 import MyAssignments from "../Pages/MyAssignments";
 import PrivateRoute from "./PrivateRoute";
 import AddAssignment from "../Pages/AddAssignment";
+import PendingAssignments from "../Pages/PendingAssignments";
+import EvaluateAssignment from "../Pages/EvaluateAssignment";
 
 
   const router = createBrowserRouter([
@@ -50,7 +52,14 @@ import AddAssignment from "../Pages/AddAssignment";
       path:'/addAssignment',
       element: <PrivateRoute><AddAssignment></AddAssignment></PrivateRoute>
     },
-   
+    {
+      path: '/pending-assignments',
+      element:<PrivateRoute><PendingAssignments></PendingAssignments></PrivateRoute>
+    },
+    // {
+    //   path:'/evaluate-assignment/:id',
+    //   element:<PrivateRoute><EvaluateAssignment></EvaluateAssignment></PrivateRoute>
+    // }
 
     ]
     },
