@@ -43,7 +43,7 @@ import UpdateAssignment from "../Pages/updateAssignment";
     },
     {
       path: '/assignmentApply/:id',
-      element: <AssignmentApply></AssignmentApply>
+      element: <PrivateRoute><AssignmentApply></AssignmentApply></PrivateRoute>
     },
     {
       path:'/myassignments',

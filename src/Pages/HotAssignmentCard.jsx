@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion'; // Import Framer Motion
 import Swal from 'sweetalert2';
 
 const HotAssignmentCard = ({ assignment, onDelete }) => {
@@ -28,7 +29,14 @@ const HotAssignmentCard = ({ assignment, onDelete }) => {
   };
 
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+    <motion.div
+      className="max-w-sm rounded overflow-hidden shadow-lg bg-white"
+      initial={{ opacity: 0, y: 50 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      transition={{ duration: 0.5, ease: "easeOut" }} 
+      whileHover={{ scale: 1.05 }} 
+      whileTap={{ scale: 0.95 }} 
+    >
       {/* Thumbnail */}
       <img className="w-full h-48 object-cover" src={thumbnail} alt={title} />
 
@@ -73,7 +81,7 @@ const HotAssignmentCard = ({ assignment, onDelete }) => {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
