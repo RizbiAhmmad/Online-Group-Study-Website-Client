@@ -1,59 +1,94 @@
-import { useState, useEffect, useContext } from 'react';
-import { AuthContext } from '../provider/AuthProvider';
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../provider/AuthProvider";
 
 const MyAssignments = () => {
-  const { user } = useContext(AuthContext); // Get logged-in user's info
-  const [assignments, setAssignments] = useState([]);
+  const { user } = useContext(AuthContext); // Access the logged-in user's details
+  const [applications, setApplications] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  console.log(applications);
 
   useEffect(() => {
-    const fetchAssignments = async () => {
+    const fetchApplications = async () => {
       try {
-        // Use fetch to get assignments based on the logged-in user's email
-        const response = await fetch(`http://localhost:5000/assignment-applications?email=${user?.email}`);
+        // Check if user is logged in
+        if (!user || !user.email) {
+          setError("User not logged in.");
+          setLoading(false);
+          return;
+        }
+
+        const response = await fetch(
+          `http://localhost:5000/apply?email=${user.email}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch applications");
+        }
         const data = await response.json();
-        setAssignments(data);
-      } catch (error) {
-        console.error('Error fetching submitted assignments:', error);
+        setApplications(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
     };
 
-    if (user?.email) {
-      fetchAssignments();
-    }
-  }, [user?.email]);
+    fetchApplications();
+  }, [user]); // Dependency array to run the effect when user data changes
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
-    <div className="container mx-auto my-8">
-      <h1 className="text-2xl font-bold text-center mb-6">My Submitted Assignments</h1>
-      <div className="overflow-x-auto">
-        <table className="table-auto w-full border">
+    <div className="container mx-auto my-8 p-4">
+      <h1 className="text-3xl font-semibold text-center mb-6 text-gray-800">
+        My Submitted Assignments ({applications.length})
+      </h1>
+
+      <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+        <table className="min-w-full text-sm text-gray-700">
           <thead>
-            <tr>
-              <th className="px-4 py-2 border">Title</th>
-              <th className="px-4 py-2 border">Status</th>
-              <th className="px-4 py-2 border">Marks</th>
-              <th className="px-4 py-2 border">Obtained Marks</th>
-              <th className="px-4 py-2 border">Feedback</th>
+            <tr className="bg-gray-100 text-left border-b">
+              <th className="px-4 py-2 font-semibold">Assignment Title</th>
+              <th className="px-4 py-2 font-semibold">Applicant Email</th>
+              <th className="px-4 py-2 font-semibold">Status</th>
+              <th className="px-4 py-2 font-semibold">Marks</th>
+              <th className="px-4 py-2 font-semibold">Obtain Marks</th>
+              <th className="px-4 py-2 font-semibold">Applied At</th>
             </tr>
           </thead>
           <tbody>
-            {assignments.length === 0 ? (
-              <tr>
-                <td colSpan="5" className="px-4 py-2 text-center text-gray-500">
-                  No submitted assignments found.
+            {applications.map((application) => (
+              <tr key={application._id} className="border-b hover:bg-gray-50">
+                <td className="px-4 py-3">{application.title}</td>
+                <td className="px-4 py-3">{application.applicant_email}</td>
+               
+                <td className="px-4 py-3">
+                  <span
+                    className={`inline-block px-2 py-1 text-xs font-semibold rounded-full ${
+                      application.status === "Pending"
+                        ? "bg-yellow-200 text-yellow-800"
+                        : application.status !== "Accepted"
+                        ? "bg-green-800 text-white"
+                        : "bg-gray-200 text-gray-800" 
+                    }`}
+                  >
+                    {application.status === "Pending" ? "Pending" : "Accepted"}
+                  </span>
+                </td>
+                <td className="px-4 py-3">{application.marks || "N/A"}</td>
+                <td className="px-4 py-3">{application.obtainedMarks || "N/A"}</td>
+                <td className="px-4 py-3">
+                  {new Date(application.appliedAt).toLocaleString()}
                 </td>
               </tr>
-            ) : (
-              assignments.map((assignment) => (
-                <tr key={assignment._id}>
-                  <td className="px-4 py-2 border">{assignment.title}</td>
-                  <td className="px-4 py-2 border">{assignment.status}</td>
-                  <td className="px-4 py-2 border">{assignment.marks}</td>
-                  <td className="px-4 py-2 border">{assignment.obtainedMarks || 'N/A'}</td>
-                  <td className="px-4 py-2 border">{assignment.feedback || 'No Feedback'}</td>
-                </tr>
-              ))
-            )}
+            ))}
           </tbody>
         </table>
       </div>

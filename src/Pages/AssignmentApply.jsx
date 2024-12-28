@@ -8,7 +8,7 @@ const AssignmentApply = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const submitAssignmentApplication = (e) => {
+  const submitAssignmentApplication = async (e) => {
     e.preventDefault();
     const form = e.target;
     const DocsLink = form.DocsLink.value;
@@ -21,35 +21,42 @@ const AssignmentApply = () => {
       quickNote,
     };
 
-    fetch("http://localhost:5000/assignment-applications", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(applicationData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.insertedId) {
-          Swal.fire({
-            title: "Assignment submitted successfully!",
-            icon: "success",
-          });
-          navigate("/myassignments");
-        } else {
-          Swal.fire({
-            title: "Duplicate submission is not allowed!",
-            icon: "error",
-          });
-        }
-      })
-      .catch(() => {
-        Swal.fire({
-          title: "An error occurred. Please try again.",
-          icon: "error",
-        });
+    try {
+      const response = await fetch("http://localhost:5000/apply", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(applicationData),
       });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        Swal.fire({
+          title: "Success!",
+          text: "Application submitted successfully!",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        navigate("/my-assignments");
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: data.error || "Failed to submit the application.",
+          icon: "error",
+          confirmButtonText: "Try Again",
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting application:", error);
+      Swal.fire({
+        title: "Error!",
+        text: "An unexpected error occurred.",
+        icon: "error",
+        confirmButtonText: "Try Again",
+      });
+    }
   };
 
   return (

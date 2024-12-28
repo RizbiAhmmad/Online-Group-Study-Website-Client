@@ -46,7 +46,7 @@ import UpdateAssignment from "../Pages/updateAssignment";
       element: <PrivateRoute><AssignmentApply></AssignmentApply></PrivateRoute>
     },
     {
-      path:'/myassignments',
+      path:'/my-assignments',
       element: <PrivateRoute><MyAssignments></MyAssignments></PrivateRoute>
     },
     {
