@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 
 const MyAssignments = () => {
-  const { user } = useContext(AuthContext); // Access the logged-in user's details
+  const { user } = useContext(AuthContext); 
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -35,7 +35,7 @@ const MyAssignments = () => {
     };
 
     fetchApplications();
-  }, [user]); // Dependency array to run the effect when user data changes
+  }, [user]); 
 
   if (loading) {
     return <div>Loading...</div>;
@@ -59,8 +59,10 @@ const MyAssignments = () => {
               <th className="px-4 py-2 font-semibold">Applicant Email</th>
               <th className="px-4 py-2 font-semibold">Status</th>
               <th className="px-4 py-2 font-semibold">Marks</th>
-              <th className="px-4 py-2 font-semibold">Obtain Marks</th>
+              <th className="px-4 py-2 font-semibold">Obtained Marks</th>
+              <th className="px-4 py-2 font-semibold">Feedback</th> 
               <th className="px-4 py-2 font-semibold">Applied At</th>
+              
             </tr>
           </thead>
           <tbody>
@@ -68,7 +70,6 @@ const MyAssignments = () => {
               <tr key={application._id} className="border-b hover:bg-gray-50">
                 <td className="px-4 py-3">{application.title}</td>
                 <td className="px-4 py-3">{application.applicant_email}</td>
-               
                 <td className="px-4 py-3">
                   <span
                     className={`inline-block px-2 py-1 text-xs font-semibold rounded-full ${
@@ -76,7 +77,7 @@ const MyAssignments = () => {
                         ? "bg-yellow-200 text-yellow-800"
                         : application.status !== "Accepted"
                         ? "bg-green-800 text-white"
-                        : "bg-gray-200 text-gray-800" 
+                        : "bg-gray-200 text-gray-800"
                     }`}
                   >
                     {application.status === "Pending" ? "Pending" : "Accepted"}
@@ -84,9 +85,11 @@ const MyAssignments = () => {
                 </td>
                 <td className="px-4 py-3">{application.marks || "N/A"}</td>
                 <td className="px-4 py-3">{application.obtainedMarks || "N/A"}</td>
+                <td className="px-4 py-3">{application.feedback || "N/A"}</td>
                 <td className="px-4 py-3">
                   {new Date(application.appliedAt).toLocaleString()}
                 </td>
+                 
               </tr>
             ))}
           </tbody>

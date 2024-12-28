@@ -1,9 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
+import { FaMoon, FaSun } from 'react-icons/fa';
+import { ThemeContext } from '../provider/ThemeProvider';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
 
   const { user, logOut } = useContext(AuthContext);
   
@@ -11,8 +14,12 @@ const Navbar = () => {
     await logOut();
   };
 
+  
+
+
+
   return (
-    <div className="navbar shadow-md sticky px-8 top-0 z-50">
+    <div className={`navbar ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"} shadow-md sticky px-8 top-0 z-50`}>
       <div className="navbar-start flex items-center">
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold text-teal-400">
@@ -115,6 +122,13 @@ const Navbar = () => {
 
       {/* User Section */}
       <div className="navbar-end flex items-center gap-4">
+      <div
+          className="cursor-pointer text-2xl"
+          onClick={toggleDarkMode}
+          title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+        >
+          {isDarkMode ? <FaSun className="text-yellow-400" /> : <FaMoon />}
+        </div>
         {user && user.email ? (
           <>
             <div className="flex items-center gap-2">
