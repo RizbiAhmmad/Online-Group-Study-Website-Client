@@ -40,3 +40,6 @@ Welcome to **Group Study**, a collaborative learning platform designed to bring 
 - **Other Tools**:
   - SweetAlert2 for user-friendly notifications
   - dotenv for managing environment variables
+
+
+  Live link: https://online-group-study-83565.web.app

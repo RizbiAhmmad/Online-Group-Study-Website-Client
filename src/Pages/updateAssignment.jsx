@@ -16,7 +16,7 @@ const UpdateAssignment = () => {
 
   // Fetch the assignment data when the component mounts
   useEffect(() => {
-    fetch(`http://localhost:5000/assignments/${id}`)
+    fetch(`https://online-group-study-server-umber.vercel.app/assignments/${id}`)
       .then((res) => res.json())
       .then((data) => setAssignment(data))
       .catch((error) => console.error("Error fetching assignment:", error));
@@ -31,7 +31,7 @@ const UpdateAssignment = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:5000/assignments/${id}`, {
+      const response = await fetch(`https://online-group-study-server-umber.vercel.app/assignments/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

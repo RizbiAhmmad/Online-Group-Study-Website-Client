@@ -40,7 +40,7 @@ import Error from "../Pages/Error";
     {
       path:'/assignments/:id',
       element: <AssignmentDetails></AssignmentDetails>,
-      loader: ({params}) =>fetch (`http://localhost:5000/Assignments/${params.id}`)
+      loader: ({params}) =>fetch (`https://online-group-study-server-umber.vercel.app/Assignments/${params.id}`)
     },
     {
       path: '/assignmentApply/:id',

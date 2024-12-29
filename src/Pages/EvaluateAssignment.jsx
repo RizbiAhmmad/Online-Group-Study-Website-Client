@@ -10,7 +10,7 @@ const EvaluateAssignment = () => {
 
   useEffect(() => {
     // Fetch assignment details by ID
-    fetch(`http://localhost:5000/study/${id}`)
+    fetch(`https://online-group-study-server-umber.vercel.app/study/${id}`)
       .then((res) => res.json())
       .then((data) => setAssignment(data));
   }, [id]);
@@ -19,7 +19,7 @@ const EvaluateAssignment = () => {
     e.preventDefault();
 
     // Update the assignment with marks and feedback
-    fetch(`http://localhost:5000/study/${id}`, {
+    fetch(`https://online-group-study-server-umber.vercel.app/study/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ marks, feedback }),

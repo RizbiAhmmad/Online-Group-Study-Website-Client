@@ -9,7 +9,7 @@ const HotAssignments = () => {
 
   useEffect(() => {
     // Fetch data based on filters and search query
-    let url = 'http://localhost:5000/assignments?';
+    let url = 'https://online-group-study-server-umber.vercel.app/assignments?';
 
     if (difficultyFilter) {
       url += `difficulty=${difficultyFilter}&`;
@@ -27,7 +27,7 @@ const HotAssignments = () => {
   // Function to handle the deletion of an assignment
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/assignments/${id}`, {
+      const response = await fetch(`https://online-group-study-server-umber.vercel.app/assignments/${id}`, {
         method: 'DELETE',
       });
 

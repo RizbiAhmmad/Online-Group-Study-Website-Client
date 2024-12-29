@@ -20,7 +20,7 @@ const MyAssignments = () => {
         }
 
         const response = await fetch(
-          `http://localhost:5000/apply?email=${user.email}`, {
+          `https://online-group-study-server-umber.vercel.app/apply?email=${user.email}`, {
             credentials: 'include',
           }
         );

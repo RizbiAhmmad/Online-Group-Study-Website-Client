@@ -22,7 +22,7 @@ const AssignmentApply = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/apply", {
+      const response = await fetch("https://online-group-study-server-umber.vercel.app/apply", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

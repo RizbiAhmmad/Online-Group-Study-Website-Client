@@ -14,7 +14,7 @@ const PendingAssignments = () => {
   useEffect(() => {
     const fetchPendingAssignments = async () => {
       try {
-        const response = await fetch("http://localhost:5000/apply/pending");
+        const response = await fetch("https://online-group-study-server-umber.vercel.app/apply/pending");
         if (!response.ok) {
           throw new Error("Failed to fetch pending assignments");
         }
@@ -52,7 +52,7 @@ const PendingAssignments = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/apply/${selectedAssignment._id}/evaluate`,
+        `https://online-group-study-server-umber.vercel.app/apply/${selectedAssignment._id}/evaluate`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

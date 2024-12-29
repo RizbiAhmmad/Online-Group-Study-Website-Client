@@ -23,7 +23,7 @@ const AddAssignment = () => {
     console.log('Assignment Data:', initialData);
 
     // Send data to the backend
-    fetch('http://localhost:5000/assignments', {
+    fetch('https://online-group-study-server-umber.vercel.app/assignments', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
