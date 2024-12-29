@@ -20,7 +20,9 @@ const MyAssignments = () => {
         }
 
         const response = await fetch(
-          `http://localhost:5000/apply?email=${user.email}`
+          `http://localhost:5000/apply?email=${user.email}`, {
+            credentials: 'include',
+          }
         );
         if (!response.ok) {
           throw new Error("Failed to fetch applications");

@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
+import axios from "axios";
 
 const Login = () => {
   const { signIn, setUser, googleSignIn } = useContext(AuthContext);
@@ -27,6 +28,13 @@ const Login = () => {
       .then((result) => {
         setUser(result.user);
 
+        console.log('sign in', result.user.email);
+        const user = {email: email}
+        axios.post('http://localhost:5000/jwt',user, {withCredentials: true})
+        .then(data => {
+          console.log("jwt response:", data.data);
+      })
+
         // Show SweetAlert after successful login
         Swal.fire({
           title: "Login Successful!",
@@ -44,6 +52,8 @@ const Login = () => {
         setLoading(false);
       });
   };
+
+
 
   const handleGoogleSignIn = () => {
     setLoading(true);

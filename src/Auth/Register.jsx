@@ -3,6 +3,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
+import axios from "axios";
 
 const Register = () => {
   const { createNewUser, setUser, updateUserProfile } = useContext(AuthContext);
@@ -46,7 +47,7 @@ const Register = () => {
 
     createNewUser(email, password)
       .then((result) => {
-        const user = result.user;
+        const user = result.user;        
 
         return updateUserProfile({ displayName: name, photoURL: photo }).then(() => {
           setUser({ ...user, displayName: name, photoURL: photo });

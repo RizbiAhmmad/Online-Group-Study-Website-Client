@@ -30,7 +30,7 @@ const HotAssignmentCard = ({ assignment, onDelete }) => {
 
   return (
     <motion.div
-      className="max-w-sm rounded overflow-hidden shadow-lg bg-white"
+      className="max-w-sm m-4 rounded overflow-hidden shadow-lg bg-white"
       initial={{ opacity: 0, y: 50 }} 
       animate={{ opacity: 1, y: 0 }} 
       transition={{ duration: 0.5, ease: "easeOut" }} 
@@ -41,7 +41,7 @@ const HotAssignmentCard = ({ assignment, onDelete }) => {
       <img className="w-full h-48 object-cover" src={thumbnail} alt={title} />
 
       {/* Card Content */}
-      <div className="p-4">
+      <div className=" p-4">
         <div className="flex justify-between items-center">
           <h2 className="text-lg font-bold text-gray-800">{title}</h2>
           <span
