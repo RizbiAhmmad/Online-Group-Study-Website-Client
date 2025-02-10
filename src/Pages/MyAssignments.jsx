@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
+import { ThemeContext } from "../provider/ThemeProvider";
+import { motion } from "framer-motion";
 
 const MyAssignments = () => {
-  const { user } = useContext(AuthContext); 
+  const { user } = useContext(AuthContext);
+  const { isDarkMode } = useContext(ThemeContext);
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  console.log(applications);
-
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        // Check if user is logged in
         if (!user || !user.email) {
           setError("User not logged in.");
           setLoading(false);
@@ -20,9 +20,8 @@ const MyAssignments = () => {
         }
 
         const response = await fetch(
-          `https://online-group-study-server-umber.vercel.app/apply?email=${user.email}`, {
-            credentials: 'include',
-          }
+          `https://online-group-study-server-umber.vercel.app/apply?email=${user.email}`,
+          { credentials: "include" }
         );
         if (!response.ok) {
           throw new Error("Failed to fetch applications");
@@ -37,23 +36,35 @@ const MyAssignments = () => {
     };
 
     fetchApplications();
-  }, [user]); 
+  }, [user]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="container mx-auto my-8 p-4">
-      <h1 className="text-3xl font-semibold text-center mb-6 text-gray-800">
+    <motion.div
+      className={`container mx-auto my-8 py-4 px-8 ${isDarkMode ? "bg-black text-white" : "bg-white text-gray-800"}`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      {/* Heading Animation */}
+      <motion.h1
+        className="text-3xl font-semibold text-center mb-6"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         My Submitted Assignments ({applications.length})
-      </h1>
+      </motion.h1>
 
-      <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+      {/* Table Wrapper Animation */}
+      <motion.div
+        className="overflow-x-auto bg-white shadow-md rounded-lg"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+      >
         <table className="min-w-full text-sm text-gray-700">
           <thead>
             <tr className="bg-gray-100 text-left border-b">
@@ -62,14 +73,19 @@ const MyAssignments = () => {
               <th className="px-4 py-2 font-semibold">Status</th>
               <th className="px-4 py-2 font-semibold">Marks</th>
               <th className="px-4 py-2 font-semibold">Obtained Marks</th>
-              <th className="px-4 py-2 font-semibold">Feedback</th> 
+              <th className="px-4 py-2 font-semibold">Feedback</th>
               <th className="px-4 py-2 font-semibold">Applied At</th>
-              
             </tr>
           </thead>
           <tbody>
-            {applications.map((application) => (
-              <tr key={application._id} className="border-b hover:bg-gray-50">
+            {applications.map((application, index) => (
+              <motion.tr
+                key={application._id}
+                className="border-b hover:bg-gray-50"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+              >
                 <td className="px-4 py-3">{application.title}</td>
                 <td className="px-4 py-3">{application.applicant_email}</td>
                 <td className="px-4 py-3">
@@ -82,7 +98,7 @@ const MyAssignments = () => {
                         : "bg-gray-200 text-gray-800"
                     }`}
                   >
-                    {application.status === "Pending" ? "Pending" : "Accepted"}
+                    {application.status}
                   </span>
                 </td>
                 <td className="px-4 py-3">{application.marks || "N/A"}</td>
@@ -91,13 +107,12 @@ const MyAssignments = () => {
                 <td className="px-4 py-3">
                   {new Date(application.appliedAt).toLocaleString()}
                 </td>
-                 
-              </tr>
+              </motion.tr>
             ))}
           </tbody>
         </table>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
