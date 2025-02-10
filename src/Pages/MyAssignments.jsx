@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import { ThemeContext } from "../provider/ThemeProvider";
 import { motion } from "framer-motion";
+import Loading from "../Components/Loading";
 
 const MyAssignments = () => {
   const { user } = useContext(AuthContext);
@@ -38,12 +39,12 @@ const MyAssignments = () => {
     fetchApplications();
   }, [user]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading></Loading>
   if (error) return <div>Error: {error}</div>;
 
   return (
     <motion.div
-      className={`container mx-auto my-8 py-4 px-8 ${isDarkMode ? "bg-black text-white" : "bg-white text-gray-800"}`}
+      className={`container mx-auto my-4 py-4 px-8 ${isDarkMode ? "bg-black text-white" : "bg-white text-gray-800"}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
