@@ -14,12 +14,9 @@ const Navbar = () => {
     await logOut();
   };
 
-  
-
-
 
   return (
-    <div className={`navbar ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"} shadow-md sticky px-8 top-0 z-50`}>
+    <div className={`navbar ${isDarkMode ? "bg-black text-white" : "bg-white text-black"} shadow-md sticky px-8 top-0 z-50`}>
       <div className="navbar-start flex items-center">
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold text-teal-400">
@@ -114,8 +111,6 @@ const Navbar = () => {
              Pending Assignments
             </NavLink>
           </li>
-
-  
 
         </ul>
       </div>
