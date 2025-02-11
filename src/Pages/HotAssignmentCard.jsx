@@ -30,7 +30,7 @@ const HotAssignmentCard = ({ assignment, onDelete }) => {
 
   return (
     <motion.div
-      className="max-w-sm m-4 rounded overflow-hidden shadow-lg bg-white"
+      className="rounded overflow-hidden shadow-lg bg-white"
       initial={{ opacity: 0, y: 50 }} 
       animate={{ opacity: 1, y: 0 }} 
       transition={{ duration: 0.5, ease: "easeOut" }} 

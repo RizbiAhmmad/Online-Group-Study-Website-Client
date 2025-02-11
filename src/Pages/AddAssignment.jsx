@@ -46,7 +46,7 @@ const AddAssignment = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 py-4">
       <div className="w-full max-w-3xl bg-white p-8 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-6 text-center">Add New Assignment</h1>
         <form onSubmit={handleAddAssignment}>
@@ -160,7 +160,7 @@ const AddAssignment = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-200"
+            className="w-full py-2 px-4 text-teal-600 border-2 border-teal-600 rounded-lg hover:bg-teal-500 hover:text-white transition duration-200"
           >
             Add Assignment
           </button>

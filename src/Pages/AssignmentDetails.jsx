@@ -16,13 +16,13 @@ const AssignmentDetails = () => {
         hard: "bg-red-500",
       };
     return (
-        <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden py-6">
         {/* Header Section with Thumbnail */}
         <div className="relative">
           <img
             src={thumbnail}
             alt={title}
-            className="w-full h-64 object-cover"
+            className="w-full h-64 object-cover rounded-xl"
           />
           <div className="absolute top-4 right-4 px-4 py-1 text-sm text-white font-bold rounded-full shadow-lg capitalize bg-opacity-75">
             <span
@@ -53,14 +53,13 @@ const AssignmentDetails = () => {
               </p>
             </div>
           </div>
-  
-          
+            
         </div>
   
         {/* Footer Actions */}
         <div className=" p-2 flex justify-center space-x-4">
          <Link to={`/assignmentApply/${_id}`} >
-         <button className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+         <button className="px-4 py-2 text-teal-600 border-2 border-teal-600 rounded-lg hover:bg-teal-500 hover:text-white ">
             Take Assignment
           </button>        
          </Link>

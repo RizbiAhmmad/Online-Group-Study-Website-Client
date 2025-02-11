@@ -96,7 +96,7 @@ const AssignmentApply = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+            className="px-4 py-2 text-teal-600 border-2 border-teal-600 rounded-lg hover:bg-teal-500 hover:text-white"
           >
             Submit
           </button>

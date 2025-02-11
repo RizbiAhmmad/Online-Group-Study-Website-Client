@@ -5,7 +5,7 @@ const Features = () => {
   const { isDarkMode } = useContext(ThemeContext);
 
   return (
-    <section className={`${isDarkMode ? "bg-black text-white" : "bg-gray-100 text-black"} px-8 py-12`}>
+    <section className={`${isDarkMode ? "bg-black text-white" : "bg-gray-100 text-black"} p-8`}>
       <div className="container mx-auto text-center">
         <h2 className="text-3xl font-bold mb-8">Features</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

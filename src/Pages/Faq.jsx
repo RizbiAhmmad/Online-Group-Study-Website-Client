@@ -21,7 +21,7 @@ const Faq = () => {
   }, []);
 
   return (
-    <section className={`${isDarkMode ? "bg-black text-white" : "bg-white text-black"} px-8 py-12 transition-all`}>
+    <section className={`${isDarkMode ? "bg-black text-white" : "bg-gray-100 text-black"} p-8 transition-all`}>
       <div className="container mx-auto">
         <h2
           id="faq-container"
@@ -39,10 +39,10 @@ const Faq = () => {
               key={index}
               className={`border p-4 rounded-lg transition-all duration-1000 ease-out delay-${index * 200} ${
                 inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-              } ${isDarkMode ? "border-gray-700 bg-gray-800 text-white" : "border-gray-200 bg-white text-gray-800"} hover:bg-gradient-to-r hover:from-teal-400 hover:to-blue-500 hover:text-white`}
+              } ${isDarkMode ? "border-gray-700 bg-gradient-to-r from-gray-800 via-teal-600 to-blue-500 text-white" : "border-gray-200 bg-gradient-to-r from-gray-100 via-teal-200 to-blue-200 text-gray-800"} hover:scale-105 hover:shadow-xl`}
             >
               <h3 className="text-lg font-semibold">{faq.question}</h3>
-              <p className="text-gray-500 hover:text-white">{faq.answer}</p>
+              <p className="text-gray-500 hover:text-black">{faq.answer}</p>
             </div>
           ))}
         </div>

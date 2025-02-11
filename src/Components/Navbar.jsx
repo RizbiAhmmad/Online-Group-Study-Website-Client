@@ -1,22 +1,25 @@
-import React, { useState, useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { AuthContext } from '../provider/AuthProvider';
-import { FaMoon, FaSun } from 'react-icons/fa';
-import { ThemeContext } from '../provider/ThemeProvider';
+import React, { useState, useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../provider/AuthProvider";
+import { FaMoon, FaSun } from "react-icons/fa";
+import { ThemeContext } from "../provider/ThemeProvider";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
 
   const { user, logOut } = useContext(AuthContext);
-  
+
   const handleLogOut = async () => {
     await logOut();
   };
 
-
   return (
-    <div className={`navbar ${isDarkMode ? "bg-black text-white" : "bg-white text-black"} shadow-md sticky px-8 top-0 z-50`}>
+    <div
+      className={`navbar ${
+        isDarkMode ? "bg-black text-white" : "bg-white text-black"
+      } shadow-md sticky px-8 top-0 z-50`}
+    >
       <div className="navbar-start flex items-center">
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold text-teal-400">
@@ -46,7 +49,9 @@ const Navbar = () => {
 
       {/* Center Links */}
       <div
-        className={`navbar-center lg:flex ${isMenuOpen ? "block" : "hidden"} lg:block`}
+        className={`navbar-center lg:flex ${
+          isMenuOpen ? "block" : "hidden"
+        } lg:block`}
       >
         <ul className="menu menu-horizontal lg:flex flex-col lg:flex-row px-1 lg:px-0">
           <li>
@@ -73,7 +78,7 @@ const Navbar = () => {
               Assignments
             </NavLink>
           </li>
-            <li>
+          <li>
             <NavLink
               to="/addAssignment"
               className={({ isActive }) =>
@@ -82,10 +87,9 @@ const Navbar = () => {
                   : "text-gray-500 hover:text-cyan-500"
               }
             >
-             Add Assignment
+              Add Assignment
             </NavLink>
           </li>
-
           <li>
             <NavLink
               to="/my-assignments"
@@ -95,10 +99,9 @@ const Navbar = () => {
                   : "text-gray-500 hover:text-cyan-500"
               }
             >
-             My Assignments
+              My Assignments
             </NavLink>
           </li>
-
           <li>
             <NavLink
               to="/pending-assignments"
@@ -108,16 +111,15 @@ const Navbar = () => {
                   : "text-gray-500 hover:text-cyan-500"
               }
             >
-             Pending Assignments
+              Pending Assignments
             </NavLink>
           </li>
-
         </ul>
       </div>
 
       {/* User Section */}
       <div className="navbar-end flex items-center gap-4">
-      <div
+        <div
           className="cursor-pointer text-2xl"
           onClick={toggleDarkMode}
           title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
@@ -131,19 +133,19 @@ const Navbar = () => {
                 src={user.photoURL || "https://via.placeholder.com/40"}
                 alt="Profile"
                 className="w-10 h-10 rounded-full border"
-                title={user.displayName || "User"} 
+                title={user.displayName || "User"}
               />
             </div>
             <button
               onClick={handleLogOut}
-              className="btn bg-teal-500 text-white font-semibold hover:bg-teal-600 border-none shadow-md hover:shadow-lg transition-all duration-300"
+              className="px-5 py-2 font-medium text-teal-600 border-2 border-teal-600 rounded-lg hover:bg-teal-500 hover:text-white transition-all duration-300"
             >
               Log Out
             </button>
           </>
         ) : (
           <NavLink to="/login">
-            <button className="btn bg-teal-500 text-white font-semibold hover:bg-teal-600 border-none shadow-md hover:shadow-lg transition-all duration-300">
+            <button className="px-5 py-2 font-medium text-teal-600 border-2 border-teal-600 rounded-lg hover:bg-teal-500 hover:text-white transition-all duration-300">
               Login
             </button>
           </NavLink>

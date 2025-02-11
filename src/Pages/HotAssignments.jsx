@@ -46,7 +46,7 @@ const HotAssignments = () => {
   };
 
   return (
-    <div>
+    <div className="container mx-auto py-6 px-8">
       {/* Centered Filter and Search UI */}
       <div className="flex flex-col md:flex-row justify-center items-center gap-4 mt-4 mb-6">
         <select
