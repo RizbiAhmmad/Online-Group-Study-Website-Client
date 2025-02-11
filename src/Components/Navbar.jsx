@@ -90,18 +90,23 @@ const Navbar = () => {
               Add Assignment
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/my-assignments"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-cyan-500 font-bold"
-                  : "text-gray-500 hover:text-cyan-500"
-              }
-            >
-              My Assignments
-            </NavLink>
-          </li>
+
+          {/* Hide "My Assignments" if user is not logged in */}
+          {user && user.email && (
+            <li>
+              <NavLink
+                to="/my-assignments"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-cyan-500 font-bold"
+                    : "text-gray-500 hover:text-cyan-500"
+                }
+              >
+                My Assignments
+              </NavLink>
+            </li>
+          )}
+
           <li>
             <NavLink
               to="/pending-assignments"
