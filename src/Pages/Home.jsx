@@ -2,8 +2,8 @@ import React from 'react';
 import Banner from './Banner';
 import Features from './Features';
 import Faq from './Faq';
-import HotAssignments from './HotAssignments';
 import LatestAssignments from './LatestAssignments';
+import Testimonials from './Testimonials';
 
 const Home = () => {
     return (
@@ -11,6 +11,7 @@ const Home = () => {
             <Banner></Banner>
             <Features></Features>
             <LatestAssignments></LatestAssignments>
+            <Testimonials></Testimonials>
             <Faq></Faq>
             
         </div>

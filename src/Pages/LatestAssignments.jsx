@@ -23,9 +23,9 @@ const LatestAssignments = () => {
   }, []);
 
   return (
-    <section className={`py-8 ${isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"}`}>
+    <section className={`py-8 ${isDarkMode ? "bg-black text-white" : "bg-gray-100 text-gray-900"}`}>
       <div className="container mx-auto px-8">
-        <h2 className="text-4xl font-bold text-center mb-12">Latest Assignments</h2>
+        <h2 className="text-3xl font-bold text-center mb-8">Latest Assignments</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {assignments.map((assignment, index) => (
             <motion.div

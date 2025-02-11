@@ -1,0 +1,33 @@
+[
+    {
+      "_id": "1",
+      "name": "Raju",
+      "rating": 5,
+      "details": "This platform has helped me improve my assignments and learn faster. The feedback system is excellent!"
+    },
+    {
+      "_id": "2",
+      "name": "Rana",
+      "rating": 4,
+      "details": "I love the interactive assignments and quick responses from instructors. Highly recommend this platform!"
+    },
+    {
+      "_id": "3",
+      "name": "Mina",
+      "rating": 4,
+      "details": "Great experience! The study materials are well-organized, and the evaluation process is very smooth."
+    },
+    {
+      "_id": "4",
+      "name": "Tasnim",
+      "rating": 5,
+      "details": "Very user-friendly and efficient. The assignments are challenging and help in real-world learning."
+    },
+    {
+      "_id": "5",
+      "name": "Mithu",
+      "rating": 4,
+      "details": "This is by far the best e-learning platform I've used. The assignments are engaging, and the learning process is fun!"
+    }
+  ]
+  

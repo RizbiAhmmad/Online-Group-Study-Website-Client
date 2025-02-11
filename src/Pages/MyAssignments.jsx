@@ -25,7 +25,7 @@ const MyAssignments = () => {
           { credentials: "include" }
         );
         if (!response.ok) {
-          throw new Error("Failed to fetch applications");
+          throw new Error("Oops! You didn't submit any assignments.");
         }
         const data = await response.json();
         setApplications(data);
