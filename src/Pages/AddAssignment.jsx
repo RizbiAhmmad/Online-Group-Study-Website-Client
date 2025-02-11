@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from 'sweetalert2';
 import useAuth from '../hooks/useAuth'; 
 import { useNavigate } from 'react-router-dom'; 
+import { ThemeContext } from '../provider/ThemeProvider'; // Import ThemeContext
 
 const AddAssignment = () => {
   const [dueDate, setDueDate] = useState(new Date());
   const { user } = useAuth(); 
   const navigate = useNavigate(); 
+  const { isDarkMode } = useContext(ThemeContext); // Use ThemeContext
 
   const handleAddAssignment = (e) => {
     e.preventDefault();
@@ -16,13 +18,9 @@ const AddAssignment = () => {
     const formData = new FormData(e.target); 
     const initialData = Object.fromEntries(formData.entries());
 
-    
     initialData.dueDate = dueDate.toISOString().split("T")[0];
     initialData.status = 'Pending'; 
 
-    console.log('Assignment Data:', initialData);
-
-    // Send data to the backend
     fetch('https://online-group-study-server-umber.vercel.app/assignments', {
       method: 'POST',
       headers: {
@@ -39,15 +37,14 @@ const AddAssignment = () => {
             draggable: true,
           });
 
-          // Navigate to My Posted Assignments page
           navigate('/assignments');
         }
       });
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 py-4">
-      <div className="w-full max-w-3xl bg-white p-8 rounded-lg shadow-md">
+    <div className={`${isDarkMode ? "bg-black text-white" : "bg-gray-100 text-black"} flex justify-center items-center min-h-screen py-4`}>
+      <div className={`${isDarkMode ? "bg-gray-800" : "bg-white"} w-full max-w-3xl p-8 rounded-lg shadow-md`}>
         <h1 className="text-2xl font-bold mb-6 text-center">Add New Assignment</h1>
         <form onSubmit={handleAddAssignment}>
           {/* Email */}
@@ -61,7 +58,7 @@ const AddAssignment = () => {
               name="email"
               value={user?.email || ''}
               readOnly
-              className="w-full px-4 py-2 border rounded bg-gray-200 cursor-not-allowed focus:outline-none"
+              className={`${isDarkMode ? "bg-gray-700 text-white" : "bg-gray-200"} w-full px-4 py-2 border rounded cursor-not-allowed focus:outline-none`}
               required
             />
           </div>
@@ -75,7 +72,7 @@ const AddAssignment = () => {
               type="text"
               id="title"
               name="title"
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+              className={`${isDarkMode ? "bg-gray-700 text-white" : "bg-white"} w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300`}
               placeholder="Enter assignment title"
               required
             />
@@ -89,9 +86,9 @@ const AddAssignment = () => {
             <textarea
               id="description"
               name="description"
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+              className={`${isDarkMode ? "bg-gray-700 text-white" : "bg-white"} w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300`}
               placeholder="Enter assignment description"
-              rows="4"
+              rows="2"
               required
             />
           </div>
@@ -105,7 +102,7 @@ const AddAssignment = () => {
               type="number"
               id="marks"
               name="marks"
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+              className={`${isDarkMode ? "bg-gray-700 text-white" : "bg-white"} w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300`}
               placeholder="Enter total marks"
               required
             />
@@ -120,7 +117,7 @@ const AddAssignment = () => {
               type="url"
               id="thumbnail"
               name="thumbnail"
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+              className={`${isDarkMode ? "bg-gray-700 text-white" : "bg-white"} w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300`}
               placeholder="Enter thumbnail URL"
               required
             />
@@ -134,7 +131,7 @@ const AddAssignment = () => {
             <select
               id="difficulty"
               name="difficulty"
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+              className={`${isDarkMode ? "bg-gray-700 text-white" : "bg-white"} w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300`}
               required
             >
               <option value="easy">Easy</option>
@@ -152,7 +149,7 @@ const AddAssignment = () => {
               id="dueDate"
               selected={dueDate}
               onChange={(date) => setDueDate(date)}
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+              className={`${isDarkMode ? "bg-gray-700 text-white" : "bg-white"} w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300`}
               dateFormat="yyyy-MM-dd"
             />
           </div>

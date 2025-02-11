@@ -3,16 +3,19 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
 import axios from "axios";
+import Loading from "../Components/Loading";
+import { ThemeContext } from "../provider/ThemeProvider";
 
 const Login = () => {
   const { signIn, setUser, googleSignIn } = useContext(AuthContext);
+  const { isDarkMode } = useContext(ThemeContext); // Get Dark Mode state
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-
   const from = location.state?.from || "/";
 
   useEffect(() => {
@@ -28,14 +31,10 @@ const Login = () => {
       .then((result) => {
         setUser(result.user);
 
-        console.log('sign in', result.user.email);
-        const user = {email: email}
-        axios.post('https://online-group-study-server-umber.vercel.app/jwt',user, {withCredentials: true})
-        .then(data => {
-          console.log("jwt response:", data.data);
-      })
+        const user = { email };
+        axios.post("https://online-group-study-server-umber.vercel.app/jwt", user, { withCredentials: true })
+          .then((data) => console.log("JWT Response:", data.data));
 
-        // Show SweetAlert after successful login
         Swal.fire({
           title: "Login Successful!",
           text: "You have successfully logged in.",
@@ -45,15 +44,9 @@ const Login = () => {
           navigate(from, { replace: true });
         });
       })
-      .catch((err) => {
-        setError(err.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
   };
-
-
 
   const handleGoogleSignIn = () => {
     setLoading(true);
@@ -61,7 +54,6 @@ const Login = () => {
       .then((result) => {
         setUser(result.user);
 
-        // Show SweetAlert after successful Google login
         Swal.fire({
           title: "Login Successful!",
           text: "You have successfully logged in with Google.",
@@ -71,28 +63,41 @@ const Login = () => {
           navigate(from, { replace: true });
         });
       })
-      .catch((err) => {
-        setError(err.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
   };
 
+  if (loading) {
+    return <Loading />; 
+  }
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <div
+      className={`flex justify-center items-center min-h-screen bg-cover bg-center ${
+        isDarkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black"
+      }`}
+      style={{
+        backgroundImage: `url('https://img.freepik.com/free-vector/background-abstract-realistic-technology-particle_23-2148431264.jpg?semt=ais_hybrid')`,
+      }}
+    >
+      <div
+        className={`w-full max-w-md p-8 rounded-lg shadow-md ${
+          isDarkMode ? "bg-gray-800" : "bg-white"
+        } bg-opacity-90`}
+      >
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
         <form onSubmit={handleSubmit}>
+          {/* Email */}
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium mb-2">
               Email
             </label>
             <input
               type="email"
-              name="email"
               id="email"
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-200"
+              className={`w-full px-3 py-2 border rounded focus:outline-none ${
+                isDarkMode ? "bg-gray-700 text-white" : "bg-gray-100"
+              }`}
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -100,15 +105,17 @@ const Login = () => {
             />
           </div>
 
+          {/* Password */}
           <div className="mb-4">
             <label htmlFor="password" className="block text-sm font-medium mb-2">
               Password
             </label>
             <input
               type="password"
-              name="password"
               id="password"
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-200"
+              className={`w-full px-3 py-2 border rounded focus:outline-none ${
+                isDarkMode ? "bg-gray-700 text-white" : "bg-gray-100"
+              }`}
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -116,35 +123,35 @@ const Login = () => {
             />
           </div>
 
-          {error && (
-            <div className="text-red-500 text-sm mb-4">
-              <p>{error}</p>
-            </div>
-          )}
+          {/* Error Message */}
+          {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
 
+          {/* Submit Button */}
           <button
             type="submit"
-            className={`w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200 ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
+            className={`w-full py-2 rounded-lg transition duration-200 ${
+              isDarkMode
+                ? "bg-blue-500 text-white hover:bg-blue-600"
+                : "bg-blue-600 text-white hover:bg-blue-700"
             }`}
-            disabled={loading}
           >
-            {loading ? "Logging in..." : "Login"}
+            Login
           </button>
         </form>
 
+        {/* Google Sign-In */}
         <div className="text-center mt-4">
           <button
             onClick={handleGoogleSignIn}
-            className="w-full bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition duration-200"
-            disabled={loading}
+            className="w-full py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-200"
           >
-            {loading ? "Logging in with Google..." : "Login with Google"}
+            Login with Google
           </button>
         </div>
 
+        {/* Register Link */}
         <div className="text-center mt-4">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm">
             Don't have an account?{" "}
             <Link to="/register" className="text-blue-500 hover:underline">
               Register here

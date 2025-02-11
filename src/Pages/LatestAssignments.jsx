@@ -46,13 +46,13 @@ const LatestAssignments = () => {
                 <p className="text-gray-600 mt-2">{assignment.description.slice(0, 50)}...</p>
 
                 <div className="mt-4 flex justify-center">
-                  <Link to={`/assignments/${assignment._id}`}>
+                  <Link to={`/assignments`}>
                     <motion.button
                       className="px-5 py-2 font-medium text-teal-600 border-2 border-teal-600 rounded-lg hover:bg-teal-500 hover:text-white transition-all duration-300"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      View Details
+                      See More
                     </motion.button>
                   </Link>
                 </div>

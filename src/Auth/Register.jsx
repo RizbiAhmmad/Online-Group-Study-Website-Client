@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
-import axios from "axios";
+import Loading from "../Components/Loading";
 
 const Register = () => {
   const { createNewUser, setUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
   const [error, setError] = useState({});
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [loading, setLoading] = useState(false); // Loading state
 
   useEffect(() => {
     document.title = "Title | Register";
@@ -25,6 +26,7 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setError({});
+    setLoading(true); // Start loading
 
     const form = new FormData(e.target);
     const name = form.get("name");
@@ -34,6 +36,7 @@ const Register = () => {
 
     if (name.length < 2) {
       setError({ name: "Name must be more than 2 characters" });
+      setLoading(false);
       return;
     }
 
@@ -42,17 +45,16 @@ const Register = () => {
         password:
           "Password must have at least 6 characters, one uppercase letter, and one lowercase letter",
       });
+      setLoading(false);
       return;
     }
 
     createNewUser(email, password)
       .then((result) => {
-        const user = result.user;        
-
+        const user = result.user;
         return updateUserProfile({ displayName: name, photoURL: photo }).then(() => {
           setUser({ ...user, displayName: name, photoURL: photo });
 
-          // Show SweetAlert after successful registration
           Swal.fire({
             title: "Registration Successful!",
             text: "Your account has been created successfully.",
@@ -63,12 +65,22 @@ const Register = () => {
           });
         });
       })
-      .catch((err) => setError({ register: err.message }));
+      .catch((err) => setError({ register: err.message }))
+      .finally(() => setLoading(false)); // Stop loading
   };
 
+  if (loading) {
+    return <Loading />; 
+  }
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <div
+      className="flex justify-center items-center min-h-screen bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: "url('https://img.freepik.com/free-vector/background-abstract-realistic-technology-particle_23-2148431264.jpg?semt=ais_hybrid')",
+      }}
+    >
+      <div className="bg-white bg-opacity-90 p-8 rounded shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -158,6 +170,14 @@ const Register = () => {
           >
             Register
           </button>
+          <div className="text-center mt-4">
+          <p className="text-sm">
+            Already have an account?{" "}
+            <Link to="/login" className="text-blue-500 hover:underline">
+              Login
+            </Link>
+          </p>
+        </div>
         </form>
       </div>
     </div>
