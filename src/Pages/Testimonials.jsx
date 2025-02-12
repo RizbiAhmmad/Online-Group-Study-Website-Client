@@ -2,14 +2,14 @@ import React, { useEffect, useState, useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
-import { ThemeContext } from "../provider/ThemeProvider"; // Import the theme context
+import { ThemeContext } from "../provider/ThemeProvider";
 
 const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
-  const { isDarkMode } = useContext(ThemeContext); // Get dark mode state
+  const { isDarkMode } = useContext(ThemeContext);
 
   useEffect(() => {
     fetch("/reviews.json")
@@ -18,20 +18,53 @@ const Testimonials = () => {
   }, []);
 
   return (
-    <section className={`${isDarkMode ? "bg-black text-white" : "bg-gray-100 text-black"} px-8 py-4 transition-all duration-300`}>
-      <h2 className="text-3xl font-semibold text-center mb-6">What Our Students Say</h2>
+    <section
+      className={`py-16 px-8 transition-all duration-500 ${
+        isDarkMode ? "bg-black text-white" : "bg-gray-100 text-gray-900"
+      }`}
+    >
+      <div className="container mx-auto text-center">
+        <h2 className="text-4xl font-extrabold mb-6 animate-fade-in">
+          What Our Students Say ✨
+        </h2>
+        <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-10">
+          Hear from students who have taken their learning to the next level with our platform.
+        </p>
 
-      <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
-        {reviews.map((review) => (
-          <SwiperSlide key={review._id}>
-            <div className={`flex flex-col items-center mx-10 ${isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"} p-6 rounded-lg shadow-lg`}>
-              <Rating style={{ maxWidth: 180 }} value={review.rating} readOnly />
-              <p className="py-4 text-center">{review.details}</p>
-              <h3 className="text-2xl text-orange-400">{review.name}</h3>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+        <Swiper
+          navigation={true}
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          modules={[Navigation, Autoplay]}
+          className="mySwiper max-w-4xl mx-auto pb-10"
+        >
+          {reviews.map((review) => (
+            <SwiperSlide key={review._id}>
+              <div
+                className={`relative flex flex-col items-center text-center p-10 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-500 ${
+                  isDarkMode
+                    ? "bg-gray-900 border border-gray-700 text-white"
+                    : "bg-white border border-gray-300 text-gray-900"
+                }`}
+              >
+                {/* Name Badge - Now Positioned Properly */}
+                <div className="w-16 h-16 bg-teal-500 rounded-full flex items-center justify-center shadow-md mb-4">
+                  <span className="text-white text-2xl font-bold">
+                    {review.name[0]}
+                  </span>
+                </div>
+
+                <Rating style={{ maxWidth: 180 }} value={review.rating} readOnly />
+                <p className="py-6 text-lg italic text-gray-400">
+                  "{review.details}"
+                </p>
+                <h3 className="text-xl font-semibold text-teal-400">
+                  {review.name}
+                </h3>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </section>
   );
 };

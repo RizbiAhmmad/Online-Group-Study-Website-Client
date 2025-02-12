@@ -39,17 +39,19 @@ const MyAssignments = () => {
     fetchApplications();
   }, [user]);
 
-  if (loading) return <Loading></Loading>
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <Loading />;
+  if (error) return <div className="text-red-500 text-center mt-4">Error: {error}</div>;
 
   return (
     <motion.div
-      className={`container mx-auto my-4 py-4 px-8 ${isDarkMode ? "bg-black text-white" : "bg-white text-gray-800"}`}
+      className={`container mx-auto my-4 py-8 px-8 rounded-lg shadow-md ${
+        isDarkMode ? "bg-black text-white" : "bg-white text-gray-900"
+      }`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      {/* Heading Animation */}
+      {/* Heading */}
       <motion.h1
         className="text-3xl font-semibold text-center mb-6"
         initial={{ opacity: 0, scale: 0.9 }}
@@ -59,16 +61,18 @@ const MyAssignments = () => {
         My Submitted Assignments ({applications.length})
       </motion.h1>
 
-      {/* Table Wrapper Animation */}
+      {/* Table Wrapper */}
       <motion.div
-        className="overflow-x-auto bg-white shadow-md rounded-lg"
+        className={`overflow-x-auto shadow-md rounded-lg ${
+          isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+        }`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
       >
-        <table className="min-w-full text-sm text-gray-700">
-          <thead>
-            <tr className="bg-gray-100 text-left border-b">
+        <table className="min-w-full text-sm">
+          <thead className={`${isDarkMode ? "bg-gray-700 text-white" : "bg-gray-100 text-gray-700"}`}>
+            <tr className="border-b">
               <th className="px-4 py-2 font-semibold">Assignment Title</th>
               <th className="px-4 py-2 font-semibold">Applicant Email</th>
               <th className="px-4 py-2 font-semibold">Status</th>
@@ -82,7 +86,9 @@ const MyAssignments = () => {
             {applications.map((application, index) => (
               <motion.tr
                 key={application._id}
-                className="border-b hover:bg-gray-50"
+                className={`border-b ${
+                  isDarkMode ? "hover:bg-gray-700" : "hover:bg-gray-50"
+                }`}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
