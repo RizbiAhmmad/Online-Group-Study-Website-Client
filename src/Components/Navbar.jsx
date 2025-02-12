@@ -7,7 +7,6 @@ import { ThemeContext } from "../provider/ThemeProvider";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
-
   const { user, logOut } = useContext(AuthContext);
 
   const handleLogOut = async () => {
@@ -16,9 +15,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`navbar ${
-        isDarkMode ? "bg-black text-white" : "bg-white text-black"
-      } shadow-md sticky px-8 top-0 z-50`}
+      className={`navbar ${isDarkMode ? "bg-black text-white" : "bg-white text-black"} shadow-md sticky px-8 top-0 z-50`}
     >
       <div className="navbar-start flex items-center">
         {/* Logo */}
@@ -26,10 +23,7 @@ const Navbar = () => {
           Group Study
         </Link>
         {/* Hamburger Menu */}
-        <button
-          className="btn btn-ghost lg:hidden"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
+        <button className="btn btn-ghost lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
@@ -48,19 +42,13 @@ const Navbar = () => {
       </div>
 
       {/* Center Links */}
-      <div
-        className={`navbar-center lg:flex ${
-          isMenuOpen ? "block" : "hidden"
-        } lg:block`}
-      >
+      <div className={`navbar-center lg:flex ${isMenuOpen ? "block" : "hidden"} lg:block`}>
         <ul className="menu menu-horizontal lg:flex flex-col lg:flex-row px-1 lg:px-0">
           <li>
             <NavLink
               to="/"
               className={({ isActive }) =>
-                isActive
-                  ? "text-cyan-500 font-bold"
-                  : "text-gray-500 hover:text-cyan-500"
+                isActive ? "text-cyan-500 font-bold" : "text-gray-500 hover:text-cyan-500"
               }
             >
               Home
@@ -70,26 +58,26 @@ const Navbar = () => {
             <NavLink
               to="/assignments"
               className={({ isActive }) =>
-                isActive
-                  ? "text-cyan-500 font-bold"
-                  : "text-gray-500 hover:text-cyan-500"
+                isActive ? "text-cyan-500 font-bold" : "text-gray-500 hover:text-cyan-500"
               }
             >
               Assignments
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/addAssignment"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-cyan-500 font-bold"
-                  : "text-gray-500 hover:text-cyan-500"
-              }
-            >
-              Add Assignment
-            </NavLink>
-          </li>
+
+          {/* Conditionally render "Add Assignment" link */}
+          {user && user.email && (
+            <li>
+              <NavLink
+                to="/addAssignment"
+                className={({ isActive }) =>
+                  isActive ? "text-cyan-500 font-bold" : "text-gray-500 hover:text-cyan-500"
+                }
+              >
+                Add Assignment
+              </NavLink>
+            </li>
+          )}
 
           {/* Hide "My Assignments" if user is not logged in */}
           {user && user.email && (
@@ -97,9 +85,7 @@ const Navbar = () => {
               <NavLink
                 to="/my-assignments"
                 className={({ isActive }) =>
-                  isActive
-                    ? "text-cyan-500 font-bold"
-                    : "text-gray-500 hover:text-cyan-500"
+                  isActive ? "text-cyan-500 font-bold" : "text-gray-500 hover:text-cyan-500"
                 }
               >
                 My Assignments
@@ -111,9 +97,7 @@ const Navbar = () => {
             <NavLink
               to="/pending-assignments"
               className={({ isActive }) =>
-                isActive
-                  ? "text-cyan-500 font-bold"
-                  : "text-gray-500 hover:text-cyan-500"
+                isActive ? "text-cyan-500 font-bold" : "text-gray-500 hover:text-cyan-500"
               }
             >
               Pending Assignments

@@ -10,7 +10,7 @@ const CTA = () => {
       className={`py-16 text-center transition-all duration-500 ${
         isDarkMode
           ? "bg-black text-white"
-          : "bg-gradient-to-r from-blue-100 via-teal-200 to-blue-300 text-gray-800"
+          : "bg-gray-100 text-black"
       }`}
     >
       <div className="container mx-auto px-6">
@@ -21,7 +21,7 @@ const CTA = () => {
           Join thousands of students and take your learning to the next level.
           Create, submit, and evaluate assignments with ease!
         </p>
-        <Link to="/l0gin">
+        <Link to="/login">
           <button
             className="px-6 py-3 text-lg font-semibold rounded-lg transition-all duration-300 shadow-lg transform hover:scale-105 hover:shadow-xl
             bg-gradient-to-r from-blue-500 to-teal-500 text-white hover:from-teal-600 hover:to-blue-600"
@@ -30,6 +30,7 @@ const CTA = () => {
           </button>
         </Link>
       </div>
+
     </section>
   );
 };

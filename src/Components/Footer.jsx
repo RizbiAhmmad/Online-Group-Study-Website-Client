@@ -4,7 +4,7 @@ import { FaFacebook, FaTwitter, FaLinkedin, FaGithub } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-gray-300 py-12 px-6">
+    <footer className="bg-black text-gray-300 py-12 px-8">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         
         {/* Brand Section */}
@@ -32,9 +32,9 @@ const Footer = () => {
         <div>
           <h3 className="text-xl font-semibold text-white mb-4">Contact Us</h3>
           <ul className="space-y-3 text-gray-400">
-            <li>Email: <a href="mailto:support@groupstudy.com" className="hover:text-teal-400">support@groupstudy.com</a></li>
-            <li>Phone: <a href="tel:+1234567890" className="hover:text-teal-400">+123-456-7890</a></li>
-            <li>Address: Dhaka, Bangladesh</li>
+            <li>Email: <a href="mailto:contact.rizbi123@gmail.com" className="hover:text-teal-400">contact.rizbi123@gmail.com</a></li>
+            <li>Phone: <a href="tel:+880 1815 109616" className="hover:text-teal-400">+880 1815 109616</a></li>
+            <li>Address: Chittagong, Bangladesh</li>
           </ul>
         </div>
 
@@ -42,16 +42,16 @@ const Footer = () => {
         <div>
           <h3 className="text-xl font-semibold text-white mb-4">Follow Us</h3>
           <div className="flex space-x-4">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-500 transition-all">
+            <a href="https://www.facebook.com/mdakashkhan444/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-500 transition-all">
               <FaFacebook size={28} />
             </a>
             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-sky-400 transition-all">
               <FaTwitter size={28} />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-600 transition-all">
+            <a href="https://www.linkedin.com/in/rizbi2001/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-600 transition-all">
               <FaLinkedin size={28} />
             </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-500 transition-all">
+            <a href="https://github.com/RizbiAhmmad" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-500 transition-all">
               <FaGithub size={28} />
             </a>
           </div>

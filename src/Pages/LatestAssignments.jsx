@@ -23,7 +23,7 @@ const LatestAssignments = () => {
   }, []);
 
   return (
-    <section className={`py-12 ${isDarkMode ? "bg-black text-white" : "bg-gray-100 text-gray-900"}`}>
+    <section className={`py-16 ${isDarkMode ? "bg-black text-white" : "bg-gray-100 text-gray-900"}`}>
       <div className="container mx-auto px-8">
         {/* Title */}
         <h2 className={`text-4xl font-extrabold text-center mb-12 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
@@ -40,12 +40,17 @@ const LatestAssignments = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ scale: 1.05, boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.1)", transition: { duration: 0.2 } }} 
+              whileTap={{ scale: 0.95 }}
             >
               {/* Thumbnail */}
-              <img
+              <motion.img
                 className="w-full h-60 object-cover rounded-t-2xl"
                 src={assignment.thumbnail}
                 alt={assignment.title}
+                initial={{ scale: 1.1 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.3 }}
               />
 
               {/* Card Content */}
@@ -69,7 +74,7 @@ const LatestAssignments = () => {
                           ? "text-white border-white hover:bg-white hover:text-black" 
                           : "text-teal-600 border-teal-600 hover:bg-teal-600 hover:text-white"
                         }`}
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={{ scale: 1.1, rotate: -5, transition: { duration: 0.15 } }} 
                       whileTap={{ scale: 0.95 }}
                     >
                       See More

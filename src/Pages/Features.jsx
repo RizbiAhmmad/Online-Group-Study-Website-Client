@@ -8,7 +8,7 @@ const Features = () => {
     <section
       className={`${
         isDarkMode ? 'bg-black text-white' : 'bg-gray-100 text-black'
-      } px-8 py-12`}
+      } px-8 py-16`}
     >
       <div className="container mx-auto text-center">
         <h2 className="text-4xl font-extrabold mb-12 text-gradient">

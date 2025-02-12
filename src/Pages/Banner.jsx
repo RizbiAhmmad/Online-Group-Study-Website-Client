@@ -20,7 +20,7 @@ const Banner = () => {
               Collaborate, Learn, and Achieve Together with Your Friends.
             </p>
            <Link to={'/assignments'}>
-           <button className="mt-6 px-6 py-3 bg-orange-500 text-white font-bold rounded-lg shadow-lg hover:bg-orange-600">
+           <button className="mt-6 px-6 py-3 bg-teal-500 text-white font-bold rounded-lg shadow-lg hover:bg-teal-600">
               Get Started
             </button>
             </Link>

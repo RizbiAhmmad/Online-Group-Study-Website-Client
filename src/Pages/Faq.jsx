@@ -30,7 +30,7 @@ const Faq = () => {
   return (
     <section
       className={`${
-        isDarkMode ? "bg-black text-white" : "bg-gradient-to-b from-blue-50 via-blue-100 to-white text-gray-900"
+        isDarkMode ? "bg-black text-white" : "bg-gray-100 text-black"
       } px-8 py-16 transition-all`}
     >
       <div className="container mx-auto max-w-3xl">
