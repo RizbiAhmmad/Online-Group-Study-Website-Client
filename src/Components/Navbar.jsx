@@ -1,146 +1,66 @@
-import React, { useState, useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { AuthContext } from "../provider/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
+import { ThemeContext } from "../../providers/ThemeProvider";
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { FaMoon, FaSun } from "react-icons/fa";
-import { ThemeContext } from "../provider/ThemeProvider";
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
   const { user, logOut } = useContext(AuthContext);
+  const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleLogOut = async () => {
-    await logOut();
+  const handleLogOut = () => {
+    logOut().catch((error) => console.log(error));
   };
 
   return (
-    <div
-      className={`navbar ${isDarkMode ? "bg-black text-white" : "bg-white text-black"} shadow-md sticky px-8 top-0 z-50`}
-    >
-      <div className="navbar-start flex items-center">
-        {/* Logo */}
-        <Link to="/" className="text-2xl font-bold text-teal-400">
-          Group Study
+    <nav className={`bg-cyan-950 text-white px-8 py-4 sticky top-0 z-10 shadow-md ${isDarkMode ? "dark bg-gray-900" : "bg-cyan-950"}`}>
+      <div className="container mx-auto flex justify-between items-center">
+        <Link to="/" className="flex items-center gap-4 cursor-pointer">
+          <img className="h-8 w-8 object-cover" src="https://img.freepik.com/premium-vector/e-learning-concept_24911-16717.jpg" alt="Logo" />
+          <h2 className="font-bold text-purple-600 text-xl md:text-2xl">E-Learning</h2>
         </Link>
-        {/* Hamburger Menu */}
-        <button className="btn btn-ghost lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16m-7 6h7"
-            />
-          </svg>
-        </button>
-      </div>
 
-      {/* Center Links */}
-      <div className={`navbar-center lg:flex ${isMenuOpen ? "block" : "hidden"} lg:block`}>
-        <ul className="menu menu-horizontal lg:flex flex-col lg:flex-row px-1 lg:px-0">
-          <li>
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive ? "text-cyan-500 font-bold" : "text-gray-500 hover:text-cyan-500"
-              }
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/assignments"
-              className={({ isActive }) =>
-                isActive ? "text-cyan-500 font-bold" : "text-gray-500 hover:text-cyan-500"
-              }
-            >
-              Assignments
-            </NavLink>
-          </li>
-
-          {/* Conditionally render "Add Assignment" link */}
-          {user && user.email && (
-            <li>
-              <NavLink
-                to="/addAssignment"
-                className={({ isActive }) =>
-                  isActive ? "text-cyan-500 font-bold" : "text-gray-500 hover:text-cyan-500"
-                }
-              >
-                Add Assignment
-              </NavLink>
-            </li>
-          )}
-
-          {/* Hide "My Assignments" if user is not logged in */}
-          {user && user.email && (
-            <li>
-              <NavLink
-                to="/my-assignments"
-                className={({ isActive }) =>
-                  isActive ? "text-cyan-500 font-bold" : "text-gray-500 hover:text-cyan-500"
-                }
-              >
-                My Assignments
-              </NavLink>
-            </li>
-          )}
-
-          <li>
-            <NavLink
-              to="/pending-assignments"
-              className={({ isActive }) =>
-                isActive ? "text-cyan-500 font-bold" : "text-gray-500 hover:text-cyan-500"
-              }
-            >
-              Pending Assignments
-            </NavLink>
-          </li>
-        </ul>
-      </div>
-
-      {/* User Section */}
-      <div className="navbar-end flex items-center gap-4">
-        <div
-          className="cursor-pointer text-2xl"
-          onClick={toggleDarkMode}
-          title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-        >
-          {isDarkMode ? <FaSun className="text-yellow-400" /> : <FaMoon />}
+        <div className={`${menuOpen ? "flex" : "hidden"} md:flex flex-col md:flex-row gap-4 absolute md:static top-16 left-0 w-full md:w-auto bg-cyan-950 md:bg-transparent p-4 md:p-0 shadow-lg md:shadow-none ${isDarkMode ? "dark:bg-gray-800" : ""}`}>
+          <NavLink to="/" className={({ isActive }) => isActive ? "text-purple-500 font-bold border-b-2 border-purple-500 pb-1" : "text-white hover:text-purple-500"}>Home</NavLink>
+          <NavLink to="/classes" className={({ isActive }) => isActive ? "text-purple-500 font-bold border-b-2 border-purple-500 pb-1" : "text-white hover:text-purple-500"}>All Classes</NavLink>
+          <NavLink to="/teach" className={({ isActive }) => isActive ? "text-purple-500 font-bold border-b-2 border-purple-500 pb-1" : "text-white hover:text-purple-500"}>Teach on Skill Development</NavLink>
         </div>
-        {user && user.email ? (
-          <>
-            <div className="flex items-center gap-2">
-              <img
-                src={user.photoURL || "https://via.placeholder.com/40"}
-                alt="Profile"
-                className="w-10 h-10 rounded-full border"
-                title={user.displayName || "User"}
-              />
+
+        <div className="flex items-center gap-4">
+          <button onClick={toggleDarkMode} className="text-2xl cursor-pointer">
+            {isDarkMode ? <FaSun className="text-yellow-400" /> : <FaMoon />}
+          </button>
+
+          {user ? (
+            <div className="relative">
+              <img src={user.photoURL || "/default-avatar.png"} alt="User Avatar" className="w-8 h-8 md:w-10 md:h-10 rounded-full cursor-pointer border" onClick={() => setDropdownOpen(!dropdownOpen)} />
+              {dropdownOpen && (
+                <div className="absolute right-0 p-2 mt-2 bg-white text-black rounded shadow-lg w-40 dark:bg-gray-700 dark:text-white" onMouseLeave={() => setDropdownOpen(false)}>
+                  <p className="block px-4 py-2 font-semibold border-b border-gray-200 dark:border-gray-600">{user.displayName || "User"}</p>
+                  <Link to="/dashboard">
+                    <button className="w-full text-left px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded">Dashboard</button>
+                  </Link>
+                  <button onClick={handleLogOut} className="w-full mt-2 px-4 py-2 bg-red-500 text-white hover:bg-red-600 rounded">Logout</button>
+                </div>
+              )}
             </div>
-            <button
-              onClick={handleLogOut}
-              className="px-5 py-2 font-medium text-teal-600 border-2 border-teal-600 rounded-lg hover:bg-teal-500 hover:text-white transition-all duration-300"
-            >
-              Log Out
-            </button>
-          </>
-        ) : (
-          <NavLink to="/login">
-            <button className="px-5 py-2 font-medium text-teal-600 border-2 border-teal-600 rounded-lg hover:bg-teal-500 hover:text-white transition-all duration-300">
-              Login
-            </button>
-          </NavLink>
-        )}
+          ) : (
+            <Link to="/login" className="bg-white text-blue-600 px-4 py-2 rounded dark:bg-gray-800 dark:text-white">LogIn</Link>
+          )}
+
+          <div className="md:hidden">
+            {menuOpen ? (
+              <AiOutlineClose className="text-2xl cursor-pointer" onClick={() => setMenuOpen(false)} />
+            ) : (
+              <AiOutlineMenu className="text-2xl cursor-pointer" onClick={() => setMenuOpen(true)} />
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+    </nav>
   );
 };
 
